@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://b0b0nhdc04jsn"]
+
+[ext_resource type="Script" path="res://scripts/obstacle.gd" id="1_7g8j7"]
+[ext_resource type="Texture2D" uid="uid://bw2s3i4ptic2a" path="res://assets/obstacle.png" id="2_ysf6j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uvmph"]
+size = Vector2(128, 720)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eyw5x"]
+size = Vector2(1, 720)
+
+[node name="obstacle" type="Node2D"]
+script = ExtResource("1_7g8j7")
+
+[node name="top" type="Sprite2D" parent="."]
+position = Vector2(0, -360)
+texture = ExtResource("2_ysf6j")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="top"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="top/StaticBody2D"]
+shape = SubResource("RectangleShape2D_uvmph")
+
+[node name="bottom" type="Sprite2D" parent="."]
+position = Vector2(0, 360)
+texture = ExtResource("2_ysf6j")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="bottom"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bottom/StaticBody2D"]
+shape = SubResource("RectangleShape2D_uvmph")
+
+[node name="score_area" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="score_area"]
+shape = SubResource("RectangleShape2D_eyw5x")

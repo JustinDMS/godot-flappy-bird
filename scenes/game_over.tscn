@@ -1,0 +1,42 @@
+[gd_scene load_steps=2 format=3 uid="uid://bw81icbq38fp8"]
+
+[ext_resource type="Script" path="res://scripts/game_over.gd" id="1_nydgi"]
+
+[node name="game_over" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_nydgi")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "GAME OVER"
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="try_again" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Try Again"
+
+[node name="quit" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Quit"
