@@ -1,23 +1,20 @@
-[gd_scene load_steps=10 format=3 uid="uid://c2snpnl1h28qg"]
+[gd_scene load_steps=9 format=3 uid="uid://c2snpnl1h28qg"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_4p63n"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_6uc45"]
 [ext_resource type="Texture2D" uid="uid://cosnbl2v05de2" path="res://assets/player_sprite.png" id="2_lb4gp"]
 [ext_resource type="Script" path="res://scripts/obstacle_spawner.gd" id="4_jl5im"]
 
+[sub_resource type="Gradient" id="Gradient_1qi82"]
+colors = PackedColorArray(0.389054, 0.732608, 1, 1, 1.73271e-06, 0.564857, 0.876474, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_oy8pp"]
+gradient = SubResource("Gradient_1qi82")
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6gksb"]
 size = Vector2(1280, 30)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_fvehb"]
-size = Vector2(1280, 30)
-orientation = 2
-
-[sub_resource type="Gradient" id="Gradient_fmaf0"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0.292416, 0.472005, 0.288531, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_lat78"]
-gradient = SubResource("Gradient_fmaf0")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ttqa1"]
 radius = 28.0
@@ -26,24 +23,28 @@ radius = 28.0
 script = ExtResource("1_6uc45")
 score_label = NodePath("hud/Label")
 
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_oy8pp")
+
 [node name="world" type="StaticBody2D" parent="."]
 position = Vector2(640, 360)
 
 [node name="ceiling" type="CollisionShape2D" parent="world"]
-position = Vector2(0, -375)
+position = Vector2(0, -431)
 shape = SubResource("RectangleShape2D_6gksb")
 
 [node name="floor" type="CollisionShape2D" parent="world"]
-position = Vector2(0, 345)
+position = Vector2(0, 431)
 shape = SubResource("RectangleShape2D_6gksb")
-
-[node name="MeshInstance2D" type="MeshInstance2D" parent="world/floor"]
-mesh = SubResource("PlaneMesh_fvehb")
-texture = SubResource("GradientTexture1D_lat78")
 
 [node name="player" type="CharacterBody2D" parent="."]
 physics_interpolation_mode = 1
-position = Vector2(150, 319)
+position = Vector2(200, 200)
 collision_layer = 2
 script = ExtResource("1_4p63n")
 
@@ -71,6 +72,8 @@ offset_bottom = 40.0
 
 [node name="Label" type="Label" parent="hud"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 71.0
+offset_bottom = 33.0
 text = "Score: 0"
