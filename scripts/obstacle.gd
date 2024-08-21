@@ -3,8 +3,8 @@ extends Node2D
 const MIN_GAP : float = 200.0
 const MAX_GAP : float = 500.0
 const HEIGHT_MARGIN : float = 100.0
-const SPEED := 200.0
-const X_MIN := -128.0 ## Despawns after reaching this x position
+const SPEED : float = 200.0
+const X_MIN : float = -128.0 ## Despawns after reaching this x position
 
 @onready var top : Sprite2D = $top
 @onready var bottom : Sprite2D = $bottom

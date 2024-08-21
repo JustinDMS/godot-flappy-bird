@@ -1,7 +1,7 @@
 extends Node2D
 
-const MIN_SPAWN_TIME := 1.5
-const MAX_SPAWN_TIME := 2.0
+const MIN_SPAWN_TIME : float = 1.5
+const MAX_SPAWN_TIME : float = 2.0
 
 @export var spawn_timer : Timer
 
