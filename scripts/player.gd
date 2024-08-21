@@ -13,6 +13,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action("jump"):
 		if event.is_pressed() and not event.is_echo():
 			velocity.y = -JUMP_SPEED
+			Game.play_sound(Game.JUMP)
 
 func _physics_process(delta: float) -> void:
 	velocity.y += GRAVITY * delta
