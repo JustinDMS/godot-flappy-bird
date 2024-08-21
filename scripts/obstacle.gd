@@ -1,7 +1,7 @@
 extends Node2D
 
 const MIN_GAP : float = 200.0
-const MAX_GAP : float = 500.0
+const MAX_GAP : float = 450.0
 const HEIGHT_MARGIN : float = 100.0
 const SPEED : float = 200.0
 const X_MIN : float = -128.0 ## Despawns after reaching this x position
@@ -18,7 +18,7 @@ func _ready() -> void:
 	#print("Gap: ", gap)
 	#print("Wiggle room: ", MAX_GAP - gap)
 	
-	var height := randf_range(0, (MAX_GAP - gap) - HEIGHT_MARGIN)
+	var height := (MAX_GAP - gap) - HEIGHT_MARGIN
 	position.y += randf_range(-height, height)
 	
 	score_area.body_entered.connect(score_area_entered, ConnectFlags.CONNECT_ONE_SHOT)
