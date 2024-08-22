@@ -1,8 +1,5 @@
 extends Node2D
 
-const MIN_GAP : float = 175.0
-const MAX_GAP : float = 450.0
-const HEIGHT_MARGIN : float = 100.0
 const SPEED : float = 250.0
 const X_MIN : float = -128.0 ## Despawns after reaching this x position
 
@@ -31,6 +28,9 @@ func score_area_entered(_body : Node2D) -> void:
 ## Get a gap size that is influenced by the current score
 ## Higher score == smaller gap
 func get_random_gap_size() -> float:
+	const MIN_GAP : float = 175.0
+	const MAX_GAP : float = 450.0
+	
 	var max_gap : float = MAX_GAP - (snappedi(Game.score, 10) * 5)
 	return randf_range(MIN_GAP, max(MIN_GAP, max_gap))
 
