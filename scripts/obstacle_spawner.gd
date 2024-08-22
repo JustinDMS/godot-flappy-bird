@@ -1,7 +1,6 @@
 extends Node2D
 
-const MIN_SPAWN_TIME : float = 1.5
-const MAX_SPAWN_TIME : float = 2.0
+const SPAWN_TIME : float = 1.5
 
 @export var spawn_timer : Timer
 
@@ -16,6 +15,5 @@ func _ready() -> void:
 func spawn_obstacle() -> void:
 	var new_obstacle := obstacle.instantiate()
 	add_child(new_obstacle)
-	
-	var time := randf_range(MIN_SPAWN_TIME, MAX_SPAWN_TIME)
-	spawn_timer.start(time)
+
+	spawn_timer.start(SPAWN_TIME)
