@@ -1,9 +1,9 @@
 extends Node2D
 
-const MIN_GAP : float = 200.0
+const MIN_GAP : float = 175.0
 const MAX_GAP : float = 450.0
 const HEIGHT_MARGIN : float = 100.0
-const SPEED : float = 200.0
+const SPEED : float = 250.0
 const X_MIN : float = -128.0 ## Despawns after reaching this x position
 
 @onready var top : Sprite2D = $top
@@ -11,15 +11,11 @@ const X_MIN : float = -128.0 ## Despawns after reaching this x position
 @onready var score_area : Area2D = $score_area
 
 func _ready() -> void:
-	var gap := randf_range(MIN_GAP, MAX_GAP)
+	var gap := get_random_gap_size()
 	top.position.y -= gap * 0.5
 	bottom.position.y += gap * 0.5
 	
-	#print("Gap: ", gap)
-	#print("Wiggle room: ", MAX_GAP - gap)
-	
-	var height := (MAX_GAP - gap) - HEIGHT_MARGIN
-	position.y += randf_range(-height, height)
+	position.y += get_random_gap_height(gap)
 	
 	score_area.body_entered.connect(score_area_entered, ConnectFlags.CONNECT_ONE_SHOT)
 
@@ -31,3 +27,22 @@ func _physics_process(delta: float) -> void:
 
 func score_area_entered(_body : Node2D) -> void:
 	Game.increment_score()
+
+## Get a gap size that is influenced by the current score
+## Higher score == smaller gap
+func get_random_gap_size() -> float:
+	var max_gap : float = MAX_GAP - (snappedi(Game.score, 10) * 5)
+	return randf_range(MIN_GAP, max(MIN_GAP, max_gap))
+
+## Get an offset to add to the gap
+func get_random_gap_height(gap : float) -> float:
+	const MARGIN : float = 75.0
+	
+	var max_height : float = (360 - MARGIN) - (gap * 0.5)
+	
+	# Randomly choose the offset direction (up/down)
+	var direction : int = 1
+	if randf() > 0.5:
+		direction = -1
+	
+	return randf_range(0, max_height) * direction
