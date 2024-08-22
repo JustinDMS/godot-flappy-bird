@@ -39,10 +39,6 @@ func get_random_gap_height(gap : float) -> float:
 	const MARGIN : float = 75.0
 	
 	var max_height : float = (360 - MARGIN) - (gap * 0.5)
-	
-	# Randomly choose the offset direction (up/down)
-	var direction : int = 1
-	if randf() > 0.5:
-		direction = -1
+	var direction : int = pow(-1, randi() % 2) ## 1 or -1
 	
 	return randf_range(0, max_height) * direction
