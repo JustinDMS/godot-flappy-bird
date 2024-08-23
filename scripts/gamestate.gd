@@ -12,6 +12,7 @@ var player : CharacterBody2D = null
 
 var score : int = 0
 
+var muted : bool = false
 var sounds : Array[AudioStream] = [
 	load("res://assets/220173__gameaudio__spacey-1uppower-up.wav"), #Spacey 1up/Power up by GameAudio -- https://freesound.org/s/220173/ -- License: Creative Commons 0
 	load("res://assets/382310__mountain_man__game-over-arcade.wav"), #Game Over Arcade by Mountain_Man -- https://freesound.org/s/382310/ -- License: Creative Commons 0
@@ -42,6 +43,9 @@ func quit() -> void:
 	get_tree().quit()
 
 func play_sound(type : int) -> void:
+	if muted:
+		return
+	
 	var audio_stream := AudioStreamPlayer.new()
 	add_child(audio_stream)
 	

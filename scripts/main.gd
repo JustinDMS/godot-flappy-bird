@@ -12,6 +12,9 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action("quit"):
 		Game.quit()
+	if event.is_action("mute"):
+		if event.is_pressed() and not event.is_echo():
+			Game.muted = !Game.muted
 	
 	subviewport.push_input(event)
 
