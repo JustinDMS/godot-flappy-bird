@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://bw81icbq38fp8"]
+[gd_scene load_steps=4 format=3 uid="uid://bw81icbq38fp8"]
 
 [ext_resource type="Script" path="res://scripts/game_over.gd" id="1_nydgi"]
+[ext_resource type="Theme" uid="uid://dokt8y01n0iie" path="res://resources/theme.tres" id="1_x436x"]
+[ext_resource type="LabelSettings" uid="uid://mica1oo8cwha" path="res://resources/lablesettings_large.tres" id="3_a70f0"]
 
-[node name="game_over" type="Control"]
+[node name="game_over" type="Control" node_paths=PackedStringArray("try_again", "quit")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -11,9 +13,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+theme = ExtResource("1_x436x")
 script = ExtResource("1_nydgi")
+try_again = NodePath("HBoxContainer/VBoxContainer/VBoxContainer/try_again")
+quit = NodePath("HBoxContainer/VBoxContainer/VBoxContainer/quit")
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,22 +26,50 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+[node name="spacer_l" type="Control" parent="HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+alignment = 1
+
+[node name="spacer" type="Control" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+size_flags_stretch_ratio = 0.3
 text = "GAME OVER"
+label_settings = ExtResource("3_a70f0")
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="CenterContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
+size_flags_horizontal = 4
 
-[node name="try_again" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="try_again" type="Button" parent="HBoxContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 focus_mode = 0
 text = "Try Again"
 
-[node name="quit" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="quit" type="Button" parent="HBoxContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 focus_mode = 0
 text = "Quit"
+
+[node name="spacer2" type="Control" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="spacer_r" type="Control" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3

@@ -1,7 +1,7 @@
 extends Control
 
-@onready var try_again : Button = $CenterContainer/VBoxContainer/try_again
-@onready var quit : Button = $CenterContainer/VBoxContainer/quit
+@export var try_again : Button
+@export var quit : Button
 
 func _ready() -> void:
 	try_again.pressed.connect(Game.reset)

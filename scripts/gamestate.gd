@@ -17,10 +17,6 @@ var sounds : Array[AudioStream] = [
 func _ready() -> void:
 	process_mode = PROCESS_MODE_ALWAYS
 
-func _input(event: InputEvent) -> void:
-	if event.is_action("quit"):
-		quit()
-
 func increment_score() -> void:
 	score += 1
 	main.update_score()
