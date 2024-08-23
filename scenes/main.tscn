@@ -1,17 +1,15 @@
-[gd_scene load_steps=9 format=3 uid="uid://c2snpnl1h28qg"]
+[gd_scene load_steps=11 format=3 uid="uid://c2snpnl1h28qg"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_4p63n"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_6uc45"]
 [ext_resource type="Texture2D" uid="uid://cosnbl2v05de2" path="res://assets/player_sprite.png" id="2_lb4gp"]
+[ext_resource type="Texture2D" uid="uid://djfd7f3a2hnal" path="res://assets/sky.png" id="2_ys8r1"]
 [ext_resource type="Script" path="res://scripts/obstacle_spawner.gd" id="4_jl5im"]
+[ext_resource type="Theme" uid="uid://dokt8y01n0iie" path="res://resources/theme.tres" id="6_gihw0"]
+[ext_resource type="LabelSettings" uid="uid://mica1oo8cwha" path="res://resources/lablesettings_large.tres" id="7_tm847"]
 
-[sub_resource type="Gradient" id="Gradient_1qi82"]
-colors = PackedColorArray(0.389054, 0.732608, 1, 1, 1.73271e-06, 0.564857, 0.876474, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_oy8pp"]
-gradient = SubResource("Gradient_1qi82")
-fill_from = Vector2(0, 1)
-fill_to = Vector2(0, 0)
+[sub_resource type="ViewportTexture" id="ViewportTexture_284da"]
+viewport_path = NodePath("SubViewport")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6gksb"]
 size = Vector2(1280, 30)
@@ -19,9 +17,10 @@ size = Vector2(1280, 30)
 [sub_resource type="CircleShape2D" id="CircleShape2D_ttqa1"]
 radius = 28.0
 
-[node name="main" type="Node" node_paths=PackedStringArray("score_label")]
+[node name="main" type="Node" node_paths=PackedStringArray("score_label", "subviewport")]
 script = ExtResource("1_6uc45")
-score_label = NodePath("hud/Label")
+score_label = NodePath("SubViewport/hud/Label")
+subviewport = NodePath("SubViewport")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 anchors_preset = 15
@@ -29,51 +28,72 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("GradientTexture2D_oy8pp")
+texture = SubResource("ViewportTexture_284da")
 
-[node name="world" type="StaticBody2D" parent="."]
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(1280, 720)
+
+[node name="Parallax2D" type="Parallax2D" parent="SubViewport"]
+physics_interpolation_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="SubViewport/Parallax2D"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1280.0
+offset_bottom = 720.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ys8r1")
+
+[node name="world" type="StaticBody2D" parent="SubViewport"]
 position = Vector2(640, 360)
 
-[node name="ceiling" type="CollisionShape2D" parent="world"]
+[node name="ceiling" type="CollisionShape2D" parent="SubViewport/world"]
 position = Vector2(0, -431)
 shape = SubResource("RectangleShape2D_6gksb")
 
-[node name="floor" type="CollisionShape2D" parent="world"]
+[node name="floor" type="CollisionShape2D" parent="SubViewport/world"]
 position = Vector2(0, 431)
 shape = SubResource("RectangleShape2D_6gksb")
 
-[node name="player" type="CharacterBody2D" parent="."]
+[node name="player" type="CharacterBody2D" parent="SubViewport"]
 physics_interpolation_mode = 1
 position = Vector2(200, 200)
 collision_layer = 2
 script = ExtResource("1_4p63n")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SubViewport/player"]
 shape = SubResource("CircleShape2D_ttqa1")
 
-[node name="Sprite2D" type="Sprite2D" parent="player"]
+[node name="Sprite2D" type="Sprite2D" parent="SubViewport/player"]
 texture = ExtResource("2_lb4gp")
 
-[node name="obstacle_spawner" type="Node2D" parent="." node_paths=PackedStringArray("spawn_timer")]
+[node name="obstacle_spawner" type="Node2D" parent="SubViewport" node_paths=PackedStringArray("spawn_timer")]
 process_mode = 1
 physics_interpolation_mode = 1
 position = Vector2(1500, 360)
 script = ExtResource("4_jl5im")
 spawn_timer = NodePath("Timer")
 
-[node name="Timer" type="Timer" parent="obstacle_spawner"]
+[node name="Timer" type="Timer" parent="SubViewport/obstacle_spawner"]
 process_callback = 0
 
-[node name="hud" type="Control" parent="."]
+[node name="hud" type="Control" parent="SubViewport"]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_gihw0")
 
-[node name="Label" type="Label" parent="hud"]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 71.0
-offset_bottom = 33.0
-text = "Score: 0"
+[node name="Label" type="Label" parent="SubViewport/hud"]
+custom_minimum_size = Vector2(1280, 0)
+layout_mode = 2
+offset_top = 20.0
+offset_right = 1280.0
+offset_bottom = 76.0
+text = "0"
+label_settings = ExtResource("7_tm847")
+horizontal_alignment = 1
