@@ -51,7 +51,7 @@ func play_sound(type : int) -> void:
 	# Adjust the sounds if needed
 	match type:
 		SCORE:
-			audio_stream.volume_db = -6
+			audio_stream.volume_db = -8
 		GAME_OVER:
 			pass
 		JUMP:
