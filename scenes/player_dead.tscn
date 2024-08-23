@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://xgyptso1r0p7"]
+
+[ext_resource type="Texture2D" uid="uid://bue5gwaxwqe64" path="res://assets/player_dead_sprite.png" id="1_c8wha"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_107tw"]
+radius = 28.0
+
+[node name="player_dead" type="RigidBody2D"]
+process_mode = 3
+physics_interpolation_mode = 1
+collision_layer = 4
+can_sleep = false
+freeze_mode = 1
+linear_velocity = Vector2(100, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_107tw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_c8wha")

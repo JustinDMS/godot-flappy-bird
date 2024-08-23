@@ -9,6 +9,9 @@ const TILT_WEIGHT : float = 10.0
 
 @onready var sprite : Sprite2D = $Sprite2D
 
+func _ready() -> void:
+	Game.player = self
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action("jump"):
 		if event.is_pressed() and not event.is_echo():

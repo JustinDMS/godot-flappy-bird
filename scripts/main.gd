@@ -1,6 +1,7 @@
 extends Node
 
 const GAME_OVER_SCENE := preload("res://scenes/game_over.tscn")
+const PLAYER_DEAD := preload("res://scenes/player_dead.tscn")
 
 @export var score_label : Label
 @export var subviewport : SubViewport
@@ -20,3 +21,11 @@ func show_game_over() -> void:
 
 func update_score() -> void:
 	score_label.text = str(Game.score)
+
+func show_player_dead(player : CharacterBody2D) -> void:
+	var scene := PLAYER_DEAD.instantiate()
+	subviewport.add_child(scene)
+	scene.global_position = player.global_position
+	scene.rotation = player.sprite.rotation
+	
+	Game.player.queue_free()
