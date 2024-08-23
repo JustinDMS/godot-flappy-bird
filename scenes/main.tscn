@@ -35,6 +35,8 @@ size = Vector2i(1280, 720)
 
 [node name="Parallax2D" type="Parallax2D" parent="SubViewport"]
 physics_interpolation_mode = 1
+repeat_size = Vector2(1280, 0)
+autoscroll = Vector2(-10, 0)
 
 [node name="TextureRect" type="TextureRect" parent="SubViewport/Parallax2D"]
 anchors_preset = 15
