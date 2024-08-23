@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://c2snpnl1h28qg"]
+[gd_scene load_steps=12 format=3 uid="uid://c2snpnl1h28qg"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_4p63n"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_6uc45"]
 [ext_resource type="Texture2D" uid="uid://cosnbl2v05de2" path="res://assets/player_sprite.png" id="2_lb4gp"]
 [ext_resource type="Texture2D" uid="uid://djfd7f3a2hnal" path="res://assets/sky.png" id="2_ys8r1"]
 [ext_resource type="Script" path="res://scripts/obstacle_spawner.gd" id="4_jl5im"]
+[ext_resource type="Texture2D" uid="uid://utftdhkwi3rj" path="res://assets/wing_down.png" id="5_10vy1"]
 [ext_resource type="Theme" uid="uid://dokt8y01n0iie" path="res://resources/theme.tres" id="6_gihw0"]
 [ext_resource type="LabelSettings" uid="uid://mica1oo8cwha" path="res://resources/lablesettings_large.tres" id="7_tm847"]
 
@@ -28,6 +29,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 texture = SubResource("ViewportTexture_284da")
 
 [node name="SubViewport" type="SubViewport" parent="."]
@@ -70,6 +73,11 @@ shape = SubResource("CircleShape2D_ttqa1")
 
 [node name="Sprite2D" type="Sprite2D" parent="SubViewport/player"]
 texture = ExtResource("2_lb4gp")
+
+[node name="wing" type="Sprite2D" parent="SubViewport/player/Sprite2D"]
+texture = ExtResource("5_10vy1")
+centered = false
+offset = Vector2(-11.735, 1.68)
 
 [node name="obstacle_spawner" type="Node2D" parent="SubViewport" node_paths=PackedStringArray("spawn_timer")]
 process_mode = 1
